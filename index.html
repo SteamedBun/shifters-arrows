@@ -152,8 +152,7 @@
             });
             listNames();
             console.log(entries);   
-        }      
-        
+        }         
         
         // NOTE THE NAME DOWN CORRESPONDING TO THE AMOUNT OF ARROWS OWNED
         const loop = (name, quantity) =>{
@@ -164,20 +163,26 @@
             }
         }
         
+        // LIST ALL THE GENERATED NAMES IN THE TEXTAREA
         const listNames = () =>{
             var textarea = document.getElementById("entries");
             textarea.value = entries.join("\n");
         }       
+
+        // GENERATE THE NAMES
         document.getElementById("generate").addEventListener("click", () => {              
             textarea.value = "Loading...";
             getEntries();       
         });       
         
+        // COPY ALL THE TEXT IN THE TEXTAREA
         function copy() {
             let textarea = document.getElementById("entries");
             textarea.select();
             document.execCommand("copy");
         }
+
+        // DISPLAY ALL OWNER'S INFO IN NAMES[]
         const info = () => {
             // stuff
             let details = "";
@@ -189,6 +194,7 @@
                     if(owner.name != "ChiChi_"){
                         details += `${owner.name}\n${owner.address}\nAmount owned: ${owner.amount}\n`;
 
+                        // CHECK ARROW BUNDLE TYPE IT IS
                         if(index === 0){
                             details += `Arrow bundle type - 1 \n\n`;
                         }
