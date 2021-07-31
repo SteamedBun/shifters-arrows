@@ -110,7 +110,7 @@
                     // can be throttled sometimes
                     if (!("owner" in response)) {
                         valid = false;
-                        document.getElementById("entries").value = "ERROR when calling Opensea, please just click again.";
+                        document.getElementById("entries").value = `ERROR\n Opensea is currently overloaded. But do not worry, this happens. Just click list again !`;
                     } else {
                         response.top_ownerships.forEach(person => {
                             names[index].push({name: person.owner.user.username, address: person.owner.address, amount: person.quantity});
@@ -169,6 +169,7 @@
             textarea.value = entries.join("\n");
         }       
         document.getElementById("generate").addEventListener("click", () => {              
+            textarea.value = "Loading...";
             getEntries();       
         });       
         
