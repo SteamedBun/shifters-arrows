@@ -61,12 +61,20 @@
             text-align: center;
             color: #eee;
         }
+        h3 {
+            padding-bottom: 0px;
+            text-align: center;
+            color: #eee;
+            font-weight: 700;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
     
     <div class="container">
         <h1>SHIFTER'S ARROWS</h1>
+        <h3 id="amount">ENTRIES: 0</h3>
         <div class="input-box">
             <textarea name="textNames" id="entries" cols="30" rows="4"></textarea>
         </div>   
@@ -162,7 +170,8 @@
                 });                            
             });
             listNames();
-            console.log(entries);   
+            console.log(entries);  
+
         }         
         
         // NOTE THE NAME DOWN CORRESPONDING TO THE AMOUNT OF ARROWS OWNED
@@ -178,6 +187,8 @@
         const listNames = () =>{
             var textarea = document.getElementById("entries");
             textarea.value = entries.join("\n");
+            var heading = document.getElementById("amount");
+            heading.textContent = `Entries: ${entries.length}`;
         }       
         
         // GENERATE THE NAMES
