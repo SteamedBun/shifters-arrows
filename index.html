@@ -101,21 +101,27 @@
                 names = [
                 [],[],[],[]
                 ];
-                let url = `https://api.opensea.io/api/v1/asset/${contract}/${element}/`;
                 
-                fetch(url, { method: "GET",})
+                //let url = `https://api.opensea.io/api/v1/asset/${contract}/${element}/`;
+                const apiKey = "PkG98AaZZ6DrNA598EBfU1hYahcWlgYl5OaxZFGm3HNnM9ezymxTXdfhF6U2wQzP";
+                const url = `https://deep-index.moralis.io/api/nft/contract/${contract}/token/${element}/owners?chain=eth&chain_name=mainnet&format=decimal&order=name.DESC`;
+                
+                fetch(url, { method: "GET",  headers: {
+                    "X-API-KEY":
+                    apiKey,
+                },})
                 .then((response) => response.json())
                 .then(response => {
                     // validate response 
                     // can be throttled sometimes
-                    if (!("owner" in response)) {
-                        valid = false;
-                        document.getElementById("entries").value = `ERROR\nOpensea is currently overloaded. But do not worry, this happens. Just click list again !`;
-                    } else {
-                        response.top_ownerships.forEach(person => {
-                            names[index].push({name: person.owner.user.username, address: person.owner.address, amount: person.quantity});
+                    // if (!("owner" in response)) {
+                    //     valid = false;
+                    //     document.getElementById("entries").value = `ERROR\nOpensea is currently overloaded. But do not worry, this happens. Just click list again !`;
+                    // } else {
+                        response.result.forEach(person => {
+                            names[index].push({address: person.owner_of, amount: person.amount});
                         });
-                    }
+                    //}
                 })
                 .then((data) => {
                     if(index >= (tokenID.length - 1) && valid){
@@ -134,20 +140,20 @@
             console.log(names);
             names.forEach((spot, index) => {
                 spot.forEach(owner => {
-                    if(owner.name != "ChiChi_"){
+                    if(owner.address != "0xb21e19093deec7cd11428ad4619f351e6daad653"){
                         let x = owner.amount;
                         while(x > 0){
                             if(index === 0){
-                                loop(owner.name, 1);
+                                loop(owner.address, 1);
                             }
                             else if(index === 1){
-                                loop(owner.name, 5);
+                                loop(owner.address, 5);
                             }
                             else if(index === 2){
-                                loop(owner.name, 10);
+                                loop(owner.address, 10);
                             }
                             else{
-                                loop(owner.name, 20);
+                                loop(owner.address, 20);
                             }
                             x--;
                         }
@@ -197,8 +203,8 @@
             //textarea.value = entries.join("\n");
             names.forEach((spot, index) => {
                 spot.forEach(owner => {                    
-                    if(owner.name != "ChiChi_"){
-                        details += `${owner.name}\n${owner.address}\nAmount owned: ${owner.amount}\n`;
+                    if(owner.address != "0xb21e19093deec7cd11428ad4619f351e6daad653"){
+                        details += `${owner.address}\nAmount owned: ${owner.amount}\n`;
                         
                         // CHECK ARROW BUNDLE TYPE IT IS
                         if(index === 0){
