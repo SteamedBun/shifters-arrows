@@ -192,7 +192,9 @@
         }       
         
         // GENERATE THE NAMES
-        document.getElementById("generate").addEventListener("click", () => {              
+        document.getElementById("generate").addEventListener("click", () => {  
+            var heading = document.getElementById("amount");
+            heading.textContent = `Entries: 0}`;            
             let textarea = document.getElementById("entries");
             textarea.value = "Loading...";
             getEntries();       
